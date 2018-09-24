@@ -1,45 +1,43 @@
+"""
+Ryan Kim
+Monday, September 24th, 2018
+On my honor, I have neither given nor received unauthorized aid.
+
+Description: This is an adventure game where the user must save his/her brother. They can choose the class they want. Each class has a different level of difficulty. For example, the soldier has an easy difficulty level because it has a highest amount of damage, the most amount of health, and a good chance number, thus making it easier to beat the game. After, choosing your character, you must face off against the assassin that kidnapped your brother and fight him for your brother's life.
+"""
+
+
+
 import math
 import random
-
 #-------------------------------------------------------------------------
 def choosingCharacter():
 	global dmg, health, chance, characterChoice
 
-	characterChoice = input ("Type your choice ")
+	characterChoice = input ("Type your choice: ")
 	characterChoice = str(characterChoice)
 
 	if (characterChoice == "soldier") or (characterChoice == "Soldier"):
 		print ("\nYou chose the soldier!")
-		dmg = 6
+		print ("\n------------------------------------------------------------------------")
+		dmg = 10
 		health = 15
 		chance = 3
 	elif (characterChoice == "archer") or (characterChoice == "Archer"):
 		print ("\nYou chose the archer!")
-		dmg = 9
+		print ("\n------------------------------------------------------------------------")
+		dmg = 7
 		health = 10
-		chance = 5
+		chance = 4
+	elif (characterChoice == "commoner") or (characterChoice == "Commoner"):
+		print ("\nYou chose the commoner!")
+		print ("\n------------------------------------------------------------------------")
+		dmg = 5
+		health = 10
+		chance = 3
 	else:
 		print ("You didn't type your character choice.\n")
-#-------------------------------------------------------------------------
-def switchString():
-	global dmg, health, chance, enemydmg, enemyhealth
-
-	dmg = str(dmg)
-	health = str(health)
-	chance = str(chance)
-
-	enemydmg = str(enemydmg)
-	enemyhealth = str(enemyhealth)
-#-------------------------------------------------------------------------
-def switchInt():
-	global dmg, health, chance, enemydmg, enemyhealth
-
-	dmg = int(dmg)
-	health = int(health)
-	chance = int(chance)
-
-	enemydmg = int(enemydmg)
-	enemyhealth = int(enemyhealth)
+		choosingCharacter()
 #-------------------------------------------------------------------------
 def stats():
 	global dmg, health, chance, enemydmg, enemyhealth
@@ -66,23 +64,30 @@ def defense():
 def chanceFunction():
 	global chanceGuess, chanceNumber, chance
 
-	chance = str(chance)
-	chanceGuess = input("\nGuess a number between 0 and " + chance)
-	chance = int(chance)
-	chanceNumber = random.randint(0,chance)
+	while True:
+		try:
+			chance = str(chance)
+			chanceGuess = input("\nGuess a number between 0 and " + chance + ": ")
+			print ("\n------------------------------------------------------------------------")
+			chance = int(chance)
+			chanceNumber = random.randint(0,chance)
 
-	chanceGuess = int(chanceGuess)
-	chanceNumber = int(chanceNumber)
+			chanceGuess = int(chanceGuess)
+			chanceNumber = int(chanceNumber)
 
-	if (chanceGuess >= 0) and (chanceGuess <= chance):
-		if (chanceGuess == chanceNumber):
-			print("\nYou guessed right!")
-			attack()
-		else:
-			print("\nYou guessed wrong!")
-	else:
-		print("\nYou didn't guess a number within the parameters. Please try again.")
-		chanceFunction()
+			if (chanceGuess >= 0) and (chanceGuess <= chance):
+				if (chanceGuess == chanceNumber):
+					print("\nYou guessed right!")
+					attack()
+					break
+				else:
+					print("\nYou guessed wrong!")
+					break
+			else:
+				print("\nYou didn't guess a number within the parameters. Please try again.")
+				chanceFunction()
+		except ValueError:
+			print ("That's not a number. Try again.")
 #-------------------------------------------------------------------------
 def battle():
 	global health, enemyhealth
@@ -93,9 +98,22 @@ def battle():
 		attack()
 		defense()
 		chanceFunction()
-		stats()
+		if (health > 0) and (enemyhealth > 0):
+			stats()
 
 		round += 1
+#-------------------------------------------------------------------------
+def end():
+	global health, enemyhealth
+
+	if (health > 0) and (enemyhealth <= 0):
+		print ("\nYou beat the assassin! Now you can get your brother back.\n")
+
+	elif (health <= 0) and (enemyhealth > 0):
+		print ("\nYou failed to beat the assassin and save your brother. Shame on you!\n")
+
+	elif (health <= 0) and (enemyhealth <= 0):
+		print ("\nYou beat the assassin, but failed to survive.\n\nYou failed to save your brother. Shame on you!\n")
 #-------------------------------------------------------------------------
 
 
@@ -103,37 +121,26 @@ dmg = 0
 health = 0
 chance = 0
 
-enemydmg = 10
-enemyhealth = 20
+enemydmg = 8
+enemyhealth = 15
 
 
 
 print ("You are here to save your brother! An assassin kidnapped him.\nChoose your character...\n\n")
 
-print ("Soldier:\n 5 dmg\n 10 health\n 3 chance\n")
-print ("Archer:\n 9 dmg\n 10 health\n 5 chance\n")
+print ("Soldier (Easy Difficulty):\n 10 dmg\n 15 health\n 3 chance\n")
+print ("Archer (Medium Difficulty):\n 7 dmg\n 10 health\n 4 chance\n")
+print ("Commoner (Hard Difficulty):\n 5 dmg\n 10 health\n 3 chance\n")
 
 choosingCharacter()
 
 print ("\nNow you must go get your brother back. In order to save him, you must beat this assassin.\n\nLook! He is coming at you right now!")
 
-#switchString()
-
 stats()
-
-#switchInt()
 
 print ("\n\nWhen you attack, the damage you do is a random number between 0 and your damage stat.\n\nYour chance stat is the opportunity to attack twice. A random number between 0 and your chance stat is generated and if you guess correctly, you will get to attack twice!\n\nYou get the first strike.\n\nGood luck!")
 
 
 battle()
 
-if (health > 0) and (enemyhealth <= 0):
-	print ("\nYou beat the assassin! Now you can get your brother back.")
-
-elif (health <= 0) and (enemyhealth > 0):
-	print ("\nYou failed to beat the assassin and save your brother. Shame on you!")
-
-
-
-	#if character choice isn't "archer" or "soldier" then redo - command
+end()
