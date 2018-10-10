@@ -27,17 +27,26 @@ def reveal():
 
 		points = []
 		
-		points.append([choiceY,choiceX])
+		points.append([choiceY, choiceX])
+
+		checked = []
 
 		while(len(points) > 0):
-			points.remove([choiceY, choiceX])
-			for x in range(-1,2):
-				for y in range(-1,2):
-					if (field[choiceY + y][choiceX + x] == "0") and (board[choiceY + y][choiceX + x] == "#"):
-						points.append([choiceY + y,choiceX + x])
-						
-					board[choiceY + y][choiceX + x] = field[choiceY + y][choiceX + x]
 
+			var1 = points[0]
+			choiceY = var1[0]
+			choiceX = var1[1]
+
+			points.remove(var1)
+			checked.append(var1)
+
+			for x in range(choiceY-1,choiceY+2):
+				for y in range(choiceX-1,choiceX+2):
+
+					if (field[x][y] == "0") and (board[x][y] == "#"):
+						points.append([x,y])
+						
+					board[x][y] = field[x][y]
 
 
 
@@ -47,9 +56,21 @@ def reveal():
 				print(board[y][x], end = " ")
 			print("")
 
+
+
+
+		#The choiceY and choiceX variables are not updating so the loop repetitively adds the same points to the list
+			#choiceY and choiceX stay the same throughout the loop
+
+			"""
+			Solutions
+			- Instead of value [choiceY + y] have position (1)
+			- if (k==1) for first time and then elif (k==0) for second and adjust everything for position
+			"""
+
 	#-----------------------------------------------
 	elif (field[choiceY][choiceX] != "B") and (field[choiceY][choiceX] != "0"): #also could put else instead of elif statement
-		board[choiceX][choiceY] = field[choiceY][choiceX]
+		board[choiceY][choiceX] = field[choiceY][choiceX]
 
 		for y in range (1, height-1):
 			for x in range(1, width-1):
@@ -57,27 +78,71 @@ def reveal():
 			print("")
 	#print board without any other point showing
 #----------------------------------------------------------------
-#def flag():
+def flag():
+	global flagX, flagY, flagC, flagW, height, width
 
+	flagX = input("Give the x position you would like to flag: ")
+	flagY = input("Give the y position you would like to flag: ")
 
+	flagX = int(flagX)
+	flagY = int(flagY)
+
+	board[flagY][flagX] = "F"
+
+	if (field[flagY][flagX] == "B"):
+		flagC += 1
+
+	else:
+		flagW += 1
+
+	for y in range (1, height-1):
+			for x in range(1, width-1):
+				print(board[y][x], end = " ")
+			print("")
 
 #----------------------------------------------------------------
-def surrouned():
-	global choiceY, choiceX, width, height
+def removeFlag():
+	global removeX, removeY, flagW, flagC, height, width
 
-	if (field[choiceY][choiceX] == "0"):
-		board[choiceY][choiceX] = field[choiceY][choiceX]
-		board[choiceY+1][choiceX] = field[choiceY+1][choiceX]
-		board[choiceY-1][choiceX] = field[choiceY-1][choiceX]
-		board[choiceY][choiceX+1] = field[choiceY][choiceX+1]
-		board[choiceY][choiceX-1] = field[choiceY][choiceX-1]
-		board[choiceY+1][choiceX+1] = field[choiceY+1][choiceX+1]
-		board[choiceY+1][choiceX-1] = field[choiceY+1][choiceX-1]
-		board[choiceY-1][choiceX+1] = field[choiceY-1][choiceX+1]
-		board[choiceY-1][choiceX-1] = field[choiceY-1][choiceX-1]
-		
+	removeX = input("Give the x position you would like to remove the flag from: ")
+	removeY = input("Give the y position you would like to remove the flag from: ")
+
+	removeX = int(removeX)
+	removeY = int(removeY)
+
+	#Changing the count of correct flags
+	if (board[flagY][flagX] == "F") and (field[flagY][flagX] == "B"):
+		if (board[flagY][flagX] == board[removeY][removeX]):
+			flagC -= 1
+
+	#Changing the count of wrong flags
+	if (board[flagY][flagX] == "F") and (field[flagY][flagX] != "B"):
+		if (board[flagY][flagX] == board[removeY][removeX]):
+			flagW -= 1
+
+	#If the wrong point is chosen
+	if (board[removeY][removeX] != "F"):
+		print("You chose a point that wasn't flagged! Try again!")
+		removeFlag()
+
+	#if the point had a "#" before it was removed, put a "#" back in
+	#if the point had a number before it was removed, put a number back in
+	board[removeY][removeX] = "#"
+
+	for y in range (1, height-1):
+			for x in range(1, width-1):
+				print(board[y][x], end = " ")
+			print("")
+
+#What about past points? Previously selected flagged values?
+#----------------------------------------------------------------
+def win():
+	print("\n\nYou win!")
+
+#----------------------------------------------------------------
 
 
+#Game Setup
 width = input("Width: ")
 height = input("Height: ")
 bombs = input("Bombs: ")
@@ -89,13 +154,20 @@ bombs = int(bombs)
 width += 2
 height += 2
 
+#What player sees
 board = []
 
 board = [["#"]*width for x in range(height)]
 
+#Solution
 field = []
 
 field = [["0"]*width for x in range(height)]
+
+
+#Correct and wrong flags
+flagC = int(0)
+flagW = int(0)
 
 
 
@@ -108,13 +180,13 @@ for j in board:
 
 
 
-#Print
+#Prints Board
 for y in range (1, height-1):
 	for x in range(1, width-1):
 		print(board[y][x], end = " ")
 	print("")
 
-
+#Adds Bombs
 count = 0
 while (count < bombs):
 	randomW = random.randint(1,width-2)
@@ -124,7 +196,7 @@ while (count < bombs):
 
 	count += 1
 
-
+#Places Bombs and Adds Numbers
 for y in range(1, height-1):
 	for x in range(1, width-1):
 		if (field[y][x] == "B"):
@@ -185,17 +257,30 @@ for y in range(1, height-1):
 				else:
 					field[y-1][x+1] += 1
 
+#--------------------------------------------------------------------------------------
 
-#User Input
-choice = input("Choose your option:\n 1.) Reveal - Choose a spot on the board and reveal whether there is a bomb or not\n 2.) Flag - Mark a spot on the board where you think there is a bomb\n\n Option: ")
+#Game Start
+playing = True
 
-#use a function here
-if (choice == "1") or (choice == "reveal")  or (choice == "Reveal"):
-	reveal()
+while (playing):
 
-#if (choice == "2") or (choice == "flag") or (choice == "Flag"):
-	#flag position
-	#flag function
+	if (flagC == bombs) and (flagW == 0):
+		win()
+		playing = False
+		break
+
+
+	choice = input("\nChoose your option:\n 1.) Reveal - Choose a spot on the board and reveal whether there is a bomb or not\n 2.) Flag - Mark a spot on the board where you think there is a bomb\n 3.) Remove Flag - Choose a flagged spot that you would like to remove the flag from\n\n Option: ")
+
+
+	if (choice == "1") or (choice == "reveal")  or (choice == "Reveal"):
+		reveal()
+
+	if (choice == "2") or (choice == "flag") or (choice == "Flag"):
+		flag()
+
+	if (choice == "3") or (choice == "removeflag") or (choice == "remove flag") or (choice == "Remove flag") or (choice == "Remove Flag"):
+		removeFlag()
 #-----------------------------------------------
 
 
