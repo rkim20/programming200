@@ -33,8 +33,6 @@ def reveal():
 		
 		points.append([choiceY, choiceX])
 
-		checked = []
-
 		while(len(points) > 0):
 
 			var1 = points[0]
@@ -42,7 +40,6 @@ def reveal():
 			choiceX = var1[1]
 
 			points.remove(var1)
-			checked.append(var1)
 
 			for x in range(choiceY-1,choiceY+2):
 				for y in range(choiceX-1,choiceX+2):
