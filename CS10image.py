@@ -1,3 +1,11 @@
+"""
+Ryan Kim
+HW for Monday, October 15th
+
+Sources: http://colorizer.org/ - I used this source to get the values of colors in the RGB mode
+"""
+
+
 from PIL import Image
 
 imgx = 512
