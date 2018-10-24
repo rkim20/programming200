@@ -3,7 +3,7 @@ import colorsys
 import random
 
 #---------------------------------------------------------------------------------------------------
-#First Image
+#First Image - Mandelbrot set
 #Minimum and maximum range of c value
 xa, xb = -1.586, -1.539
 ya, yb = -0.02284, 0.02371
@@ -16,9 +16,13 @@ maxIt = 256
 
 image = Image.new("RGB", (imgx, imgy))
 
-#Sets up image grid
+#Sets up pixel grid
 for y in range(imgy):
+
+	#splits pixels into number that fits in the range of c
 	cy = y*(yb-ya) / (imgy-1) + ya
+
+
 	for x in range(imgx):
 		cx = x*(xb-xa) / (imgx-1) + xa
 
@@ -64,17 +68,47 @@ for y in range(imgy):
 		image.putpixel((x,y),(r,g,b))
 
 
-image.show()
+#image.show()
 #---------------------------------------------------------------------------------------------------
 #Second Image - Julia Set (julia set is the same except c changes and z stays the same)
 
+#minimum and maximum range of z vallue
+x1, x2 = 0.05, 0.90
+y1, y2 = -0.45, 0.40
+
+image = Image.new("RGB", (imgx, imgy))
 
 
+#Sets up pixel grid
+for y in range(imgy):
+
+	#splits y pixels into number that fits in the range of c
+	cy = y*(y2-y1) / (imgy-1) + y1
 
 
+	for x in range(imgx):
+
+		#splits x pixels into number that fits in the range of c
+		cx = x*(x2-x1) / (imgx-1) + x1
+
+		c = complex(-0.75,0.156) #treats value like a complex number
+		z = complex(cx, cy)
+
+		#Goes through breaking out process with each point
+		for i in range(maxIt):
+			if (abs(z) >= 2.0):
+				break
+			z = z**2 + c
 
 
+		r = i%256
+		g = i
+		b = i+20
 
+		image.putpixel((x,y),(r,g,b))
+
+
+image.show()
 
 
 
