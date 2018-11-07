@@ -5,6 +5,10 @@ import random
 
 
 #Functions---------------------------------------------------------
+#Function for checking if it's on edge
+#Function for 
+
+def addFrontier(x, y):
 
 
 
@@ -52,7 +56,7 @@ visited[0,0] = startX
 visited[0.1] = startY
 """
 
-
+#addFrontier(startX, startY)
 if (startX == 0):
 	frontier.append([startX+1, startY])
 	frontier.append([startX, startY+1])
@@ -60,28 +64,28 @@ if (startX == 0):
 	board[startX+1][startY] = "F"
 	board[startX][startY+1] = "F"
 	board[startX][startY-1] = "F"
-elif (startX == width-1):
+if (startX == width-1):
 	frontier.append([startX-1, startY])
 	frontier.append([startX, startY+1])
 	frontier.append([startX, startY-1])
 	board[startX-1][startY] = "F"
 	board[startX][startY+1] = "F"
 	board[startX][startY-1] = "F"
-elif (startY == 0):
+if (startY == 0):
 	frontier.append([startX+1, startY])
 	frontier.append([startX-1, startY])
 	frontier.append([startX, startY+1])
 	board[startX+1][startY] = "F"
 	board[startX-1][startY] = "F"
 	board[startX][startY+1] = "F"
-elif (startY == height-1):
+if (startY == height-1):
 	frontier.append([startX+1, startY])
 	frontier.append([startX-1, startY])
 	frontier.append([startX, startY-1])
 	board[startX+1][startY] = "F"
 	board[startX-1][startY] = "F"
 	board[startX][startY-1] = "F"
-else:
+if (startX != 0) and (startX != width-1) and (startY != 0) and (startY != height-1):
 	frontier.append([startX+1, startY])
 	frontier.append([startX-1, startY])
 	frontier.append([startX, startY+1])
@@ -90,12 +94,15 @@ else:
 	board[startX-1][startY] = "F"
 	board[startX][startY+1] = "F"
 	board[startX][startY-1] = "F"
-
+#the same point can be added more than once
 
 while (len(frontier) > 0):
-	newV = random.randint(len(frontier))
-	frontier[newV] = 
+	newV = random.randint(0, len(frontier))
+	visited.append(frontier[newV])
+	a, b = frontier[newV]
+	del frontier[newV]
 
+	#Function for erasing the lines
 
 
 image.show()
