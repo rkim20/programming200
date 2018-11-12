@@ -7,76 +7,77 @@ import random
 #Functions--------------------------------------------------------- 
 
 #Might have to switch x and y
+#Adds 
 def addFrontier(x, y):
 	if (x == 0) and (y == 0):
-		if (board[x+1][y] == "N"):
+		if (board[y+1][x] == "N"):
 			frontier.append([x+1, y])
-			board[x+1][y] = "F"
-		if (board[x][y+1] == "N"):
+			board[y+1][x] = "F"
+		if (board[y][x+1] == "N"):
 			frontier.append([x, y+1])
-			board[x][y+1] = "F"
+			board[y][x+1] = "F"
 	elif (x == 0) and (y == height-1):
-		if (board[x+1][y] == "N"):
+		if (board[y+1][x] == "N"):
 			frontier.append([x+1, y])
-			board[x+1][y] = "F"
-		if (board[x][y-1] == "N"):
+			board[y+1][x] = "F"
+		if (board[y][x-1] == "N"):
 			frontier.append([x, y-1])
-			board[x][y-1] = "F"
+			board[y][x-1] = "F"
 	elif (x == width-1) and (y == 0):
-		if (board[x-1][y] == "N"):
+		if (board[y-1][x] == "N"):
 			frontier.append([x-1, y])
-			board[x-1][y] = "F"
-		if (board[x][y+1] == "N"):
+			board[y-1][x] = "F"
+		if (board[y][x+1] == "N"):
 			frontier.append([x, y+1])
-			board[x][y+1] = "F"
+			board[y][x+1] = "F"
 	elif (x == width-1) and (y == height-1):
-		if (board[x-1][y] == "N"):
+		if (board[y-1][x] == "N"):
 			frontier.append([x-1, y])
-			board[x-1][y] = "F"
-		if (board[x][y-1] == "N"):
+			board[y-1][x] = "F"
+		if (board[y][x-1] == "N"):
 			frontier.append([x, y-1])
-			board[x][y-1] = "F"
+			board[y][x-1] = "F"
 
 	elif (x == 0) and (y != 0) and (y != height-1):
-		if (board[x+1][y] == "N"):
+		if (board[y+1][x] == "N"):
 			frontier.append([x+1, y])
-			board[x+1][y] = "F"
-		if (board[x][y+1] == "N"):
+			board[y+1][x] = "F"
+		if (board[y][x+1] == "N"):
 			frontier.append([x, y+1])
-			board[x][y+1] = "F"
-		if (board[x][y-1] == "N"):
+			board[y][x+1] = "F"
+		if (board[y][x-1] == "N"):
 			frontier.append([x, y-1])
-			board[x][y-1] = "F"
+			board[y][x-1] = "F"
 	elif (x == width-1) and (y != 0) and (y != height-1):
-		if (board[x-1][y] == "N"):
+		if (board[y-1][x] == "N"):
 			frontier.append([x-1, y])
-			board[x-1][y] = "F"
-		if (board[x][y+1] == "N"):
+			board[y-1][x] = "F"
+		if (board[y][x+1] == "N"):
 			frontier.append([x, y+1])
-			board[x][y+1] = "F"
-		if (board[x][y-1] == "N"):
+			board[y][x+1] = "F"
+		if (board[y][x-1] == "N"):
 			frontier.append([x, y-1])
-			board[x][y-1] = "F"
+			board[y][x-1] = "F"
 	elif (y == 0) and (x != 0) and (x != width-1):
-		if (board[x+1][y] == "N"):
+		if (board[y+1][x] == "N"):
 			frontier.append([x+1, y])
-			board[x+1][y] = "F"
-		if (board[x-1][y] == "N"):
+			board[y+1][x] = "F"
+		if (board[y-1][x] == "N"):
 			frontier.append([x-1, y])
-			board[x-1][y] = "F"
-		if (board[x][y+1] == "N"):
+			board[y-1][x] = "F"
+		if (board[y][x+1] == "N"):
 			frontier.append([x, y+1])
-			board[x][y+1] = "F"
+			board[y][x+1] = "F"
 	elif (y == height-1) and (x != 0) and (x != width-1):
-		if (board[x+1][y] == "N"):
+		if (board[y+1][x] == "N"):
 			frontier.append([x+1, y])
-			board[x+1][y] = "F"
-		if (board[x-1][y] == "N"):
+			board[y+1][x] = "F"
+		if (board[y-1][x] == "N"):
 			frontier.append([x-1, y])
-			board[x-1][y] = "F"
-		if (board[x][y-1] == "N"):
+			board[y-1][x] = "F"
+		if (board[y][y-x] == "N"):
 			frontier.append([x, y-1])
-			board[x][y-1] = "F"
+			board[y][x-1] = "F"
 	elif (x != 0) and (x != width-1) and (y != 0) and (y != height-1): #also can do else
 		if (board[x+1][y] == "N"):
 			frontier.append([x+1, y])
@@ -111,6 +112,104 @@ def removeLines(point1, point2):
 			draw.line(((imgx/width) * point1[0],(imgy/height) * point1[1], (imgx/width) * (point1[0]+1),(imgy/height) * point1[1]), fill = 0, width = 3)
 			#imgx/width * point1[0], imgy/height * point2[1], imgx/width * point1[0]+1, imgy/height * point2[1]
 
+
+def checkV(a,b):
+	possibleV = []
+
+	for x in range(width):
+		for y in range(height):
+			if (a == 0) and (b == 0):
+				if (a+1,b == visited[y][x]):
+					possibleV.append(a+1,b)
+				if (a,b+1 == visited[y][x]):
+					possibleV.append(a,b+1)
+				lineV = random.randint(0,len(possibleV))
+				return possibleV[liveV]
+
+			elif (a == 0) and (b == height-1):
+				if (a+1,b == visited[y][x]):
+					possibleV.append(a+1,b)
+				if (a,b-1 == visited[y][x]):
+					possibleV.append(a,b-1)
+				lineV = random.randint(0,len(possibleV))
+				return possibleV[liveV]
+
+			elif (a == width-1) and (b == 0):
+				if (a-1,b == visited[y][x]):
+					possibleV.append(a-1,b)
+				if (a,b+1 == visited[y][x]):
+					possibleV.append(a,b+1)
+				lineV = random.randint(0,len(possibleV))
+				return possibleV[liveV]
+
+			elif (a == width-1) and (b == height-1):
+				if (a-1,b == visited[y][x]):
+					possibleV.append(a-1,b)
+				if (a,b-1 == visited[y][x]):
+					possibleV.append(a,b-1)
+				lineV = random.randint(0,len(possibleV))
+				return possibleV[liveV]
+
+			else:
+				if (a == 0):
+					if (a+1,b == visited[y][x]):
+						possibleV.append(a+1,b)
+					if (a,b-1 == visited[y][x]):
+						possibleV.append(a,b-1)
+					if (a,b+1 == visited[y][x]):
+						possibleV.append(a,b+1)
+					lineV = random.randint(0,len(possibleV))
+					return possibleV[liveV]
+
+				elif (a == width-1):
+					if (a-1,b == visited[y][x]):
+						possibleV.append(a-1,b)
+					if (a,b-1 == visited[y][x]):
+						possibleV.append(a,b-1)
+					if (a,b+1 == visited[y][x]):
+						possibleV.append(a,b+1)
+					lineV = random.randint(0,len(possibleV))
+					return possibleV[liveV]
+
+				elif (b == 0):
+					if (a+1,b == visited[y][x]):
+						possibleV.append(a+1,b)
+					if (a-1,b == visited[y][x]):
+						possibleV.append(a-1,b)
+					if (a,b+1 == visited[y][x]):
+						possibleV.append(a,b+1)
+					lineV = random.randint(0,len(possibleV))
+					return possibleV[liveV]
+
+				elif (b == height-1):
+					if (a+1,b == visited[y][x]):
+						possibleV.append(a+1,b)
+					if (a-1,b == visited[y][x]):
+						possibleV.append(a-1,b)
+					if (a,b-1 == visited[y][x]):
+						possibleV.append(a,b-1)
+					lineV = random.randint(0,len(possibleV))
+					return possibleV[liveV]
+
+				else:
+					if (a+1,b == visited[y][x]):
+						possibleV.append(a+1,b)
+					if (a-1,b == visited[y][x]):
+						possibleV.append(a-1,b)
+					if (a,b-1 == visited[y][x]):
+						possibleV.append(a,b-1)
+					if (a,b+1 == visited[y][x]):
+						possibleV.append(a,b+1)
+					lineV = random.randint(0,len(possibleV))
+					return possibleV[liveV]
+
+def checkPixels():
+	for x in range(1,imgx-1):
+		for y in range(1,imgy-1):
+			r, g, b = image.getpixel((x,y))
+			if (r == 0):
+				newR,newG,newB = image.getpixel
+	#Help - try and find a way to do this more easily - getting info of pixel
 #Create a function or add to this one that goes through every pixel and checks to see if it is surrounded by red or black to add red points to the edges
 #Main--------------------------------------------------------------
 #ADD ERROR CHECKING
@@ -177,12 +276,12 @@ while (len(frontier) > 0):
 	del frontier[newV]
 
 	#Function for erasing the lines
-	if (count == 1):
+	if (count == 0):
 		removeLines(startV, updatedV)
-		count++
+		count+=1
 	else:
 		#Create a function that is made of if statements and checks to see how many V points are around the given point before providing a random V point (maybe returns it) - this will provide the updatedV point another point that has already been deemed "V" and remove the lines between them
-		removeLines(updatedV, )
+		removeLines(updatedV, checkV(a,b))
 
 image.show()
 
