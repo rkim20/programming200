@@ -8,89 +8,91 @@ import random
 
 #Might have to switch x and y
 #Adds 
+
+#Problem - frontier x and y values are switched
 def addFrontier(x, y):
 	if (x == 0) and (y == 0):
 		if (board[y+1][x] == "N"):
-			frontier.append([x+1, y])
+			frontier.append([x, y+1])
 			board[y+1][x] = "F"
 		if (board[y][x+1] == "N"):
-			frontier.append([x, y+1])
+			frontier.append([x+1, y])
 			board[y][x+1] = "F"
 	elif (x == 0) and (y == height-1):
-		if (board[y+1][x] == "N"):
-			frontier.append([x+1, y])
-			board[y+1][x] = "F"
-		if (board[y][x-1] == "N"):
-			frontier.append([x, y-1])
-			board[y][x-1] = "F"
-	elif (x == width-1) and (y == 0):
 		if (board[y-1][x] == "N"):
-			frontier.append([x-1, y])
+			frontier.append([x, y-1])
 			board[y-1][x] = "F"
 		if (board[y][x+1] == "N"):
-			frontier.append([x, y+1])
+			frontier.append([x+1, y])
 			board[y][x+1] = "F"
+	elif (x == width-1) and (y == 0):
+		if (board[y+1][x] == "N"):
+			frontier.append([x, y+1])
+			board[y+1][x] = "F"
+		if (board[y][x-1] == "N"):
+			frontier.append([x-1, y])
+			board[y][x-1] = "F"
 	elif (x == width-1) and (y == height-1):
 		if (board[y-1][x] == "N"):
-			frontier.append([x-1, y])
+			frontier.append([x, y-1])
 			board[y-1][x] = "F"
 		if (board[y][x-1] == "N"):
-			frontier.append([x, y-1])
+			frontier.append([x-1, y])
 			board[y][x-1] = "F"
 
 	elif (x == 0) and (y != 0) and (y != height-1):
 		if (board[y+1][x] == "N"):
-			frontier.append([x+1, y])
+			frontier.append([x, y+1])
 			board[y+1][x] = "F"
 		if (board[y][x+1] == "N"):
-			frontier.append([x, y+1])
+			frontier.append([x+1, y])
 			board[y][x+1] = "F"
-		if (board[y][x-1] == "N"):
+		if (board[y-1][x] == "N"):
 			frontier.append([x, y-1])
-			board[y][x-1] = "F"
+			board[y-1][x] = "F"
 	elif (x == width-1) and (y != 0) and (y != height-1):
 		if (board[y-1][x] == "N"):
-			frontier.append([x-1, y])
+			frontier.append([x, y-1])
 			board[y-1][x] = "F"
+		if (board[y][x-1] == "N"):
+			frontier.append([x-1, y])
+			board[y][x-1] = "F"
+		if (board[y+1][x] == "N"):
+			frontier.append([x, y+1])
+			board[y+1][x] = "F"
+	elif (y == 0) and (x != 0) and (x != width-1):
+		if (board[y+1][x] == "N"):
+			frontier.append([x, y+1])
+			board[y+1][x] = "F"
 		if (board[y][x+1] == "N"):
 			frontier.append([x, y+1])
 			board[y][x+1] = "F"
 		if (board[y][x-1] == "N"):
-			frontier.append([x, y-1])
-			board[y][x-1] = "F"
-	elif (y == 0) and (x != 0) and (x != width-1):
-		if (board[y+1][x] == "N"):
-			frontier.append([x+1, y])
-			board[y+1][x] = "F"
-		if (board[y-1][x] == "N"):
 			frontier.append([x-1, y])
+			board[y][x-1] = "F"
+	elif (y == height-1) and (x != 0) and (x != width-1):
+		if (board[y-1][x] == "N"):
+			frontier.append([x, y-1])
 			board[y-1][x] = "F"
 		if (board[y][x+1] == "N"):
-			frontier.append([x, y+1])
-			board[y][x+1] = "F"
-	elif (y == height-1) and (x != 0) and (x != width-1):
-		if (board[y+1][x] == "N"):
 			frontier.append([x+1, y])
-			board[y+1][x] = "F"
-		if (board[y-1][x] == "N"):
+			board[y][x+1] = "F"
+		if (board[y][x-1] == "N"):
 			frontier.append([x-1, y])
-			board[y-1][x] = "F"
-		if (board[y][y-x] == "N"):
-			frontier.append([x, y-1])
 			board[y][x-1] = "F"
 	elif (x != 0) and (x != width-1) and (y != 0) and (y != height-1): #also can do else
-		if (board[x+1][y] == "N"):
-			frontier.append([x+1, y])
-			board[x+1][y] = "F"
-		if (board[x-1][y] == "N"):
-			frontier.append([x-1, y])
-			board[x-1][y] = "F"
-		if (board[x][y+1] == "N"):
+		if (board[y+1][x] == "N"):
 			frontier.append([x, y+1])
-			board[x][y+1] = "F"
-		if (board[x][y-1] == "N"):
+			board[y+1][x] = "F"
+		if (board[y-1][x] == "N"):
 			frontier.append([x, y-1])
-			board[x][y-1] = "F"
+			board[y-1][x] = "F"
+		if (board[y][x+1] == "N"):
+			frontier.append([x+1, y])
+			board[y][x+1] = "F"
+		if (board[y][x-1] == "N"):
+			frontier.append([x-1, y])
+			board[y][x-1] = "F"
 		
 def removeLines(point1, point2):
 	#point1 = 0,3
@@ -114,94 +116,118 @@ def removeLines(point1, point2):
 
 
 def checkV(a,b):
-	possibleV = []
+	global possibleV
+	#----------------
+	for x in range(0,len(visited)):
+		if (a == 0) and (b == 0):
+			if (board[b][a+1] == "V"):
+				vPoint = a+1,b
+				possibleV.append(vPoint)
+			if (board[b+1][a] == "V"):
+				vPoint = a,b+1
+				possibleV.append(vPoint)
+			lineV = random.randint(0,len(possibleV)-1)
+			return possibleV[lineV]
 
-	for x in range(width):
-		for y in range(height):
-			if (a == 0) and (b == 0):
-				if (a+1,b == visited[y][x]):
-					possibleV.append(a+1,b)
-				if (a,b+1 == visited[y][x]):
-					possibleV.append(a,b+1)
-				lineV = random.randint(0,len(possibleV))
-				return possibleV[liveV]
+		elif (a == 0) and (b == height-1):
+			if (board[b][a+1] == "V"):
+				vPoint = a+1,b
+				possibleV.append(vPoint)
+			if (board[b-1][a] == "V"):
+				vPoint = a,b-1
+				possibleV.append(vPoint)
+			lineV = random.randint(0,len(possibleV)-1)
+			return possibleV[lineV]
 
-			elif (a == 0) and (b == height-1):
-				if (a+1,b == visited[y][x]):
-					possibleV.append(a+1,b)
-				if (a,b-1 == visited[y][x]):
-					possibleV.append(a,b-1)
-				lineV = random.randint(0,len(possibleV))
-				return possibleV[liveV]
+		elif (a == width-1) and (b == 0):
+			if (board[b][a-1] == "V"):
+				vPoint = a-1,b
+				possibleV.append(vPoint)
+			if (board[b+1][a] == "V"):
+				vPoint = a,b+1
+				possibleV.append(vPoint)
+			lineV = random.randint(0,len(possibleV)-1)
+			return possibleV[lineV]
 
-			elif (a == width-1) and (b == 0):
-				if (a-1,b == visited[y][x]):
-					possibleV.append(a-1,b)
-				if (a,b+1 == visited[y][x]):
-					possibleV.append(a,b+1)
-				lineV = random.randint(0,len(possibleV))
-				return possibleV[liveV]
+		elif (a == width-1) and (b == height-1):
+			if (board[b][a-1] == "V"):
+				vPoint = a-1,b
+				possibleV.append(vPoint)
+			if (board[b-1][a] == "V"):
+				vPoint = a,b-1
+				possibleV.append(vPoint)
+			lineV = random.randint(0,len(possibleV)-1)
+			return possibleV[lineV]
 
-			elif (a == width-1) and (b == height-1):
-				if (a-1,b == visited[y][x]):
-					possibleV.append(a-1,b)
-				if (a,b-1 == visited[y][x]):
-					possibleV.append(a,b-1)
-				lineV = random.randint(0,len(possibleV))
-				return possibleV[liveV]
+		else:
+			if (a == 0):
+				if (board[b][a+1] == "V"):
+					vPoint = a+1,b
+					possibleV.append(vPoint)
+				if (board[b-1][a] == "V"):
+					vPoint = a,b-1
+					possibleV.append(vPoint)
+				if (board[b+1][a] == "V"):
+					vPoint = a,b+1
+					possibleV.append(vPoint)
+				lineV = random.randint(0,len(possibleV)-1)
+				return possibleV[lineV]
+
+			elif (a == width-1):
+				if (board[b][a-1] == "V"):
+					vPoint = a-1,b
+					possibleV.append(vPoint)
+				if (board[b-1][a] == "V"):
+					vPoint = a,b-1
+					possibleV.append(vPoint)
+				if (board[b+1][a] == "V"):
+					vPoint = a,b+1
+					possibleV.append(vPoint)
+				lineV = random.randint(0,len(possibleV)-1)
+				return possibleV[lineV]
+
+			elif (b == 0):
+				if (board[b][a+1] == "V"):
+					vPoint = a+1,b
+					possibleV.append(vPoint)
+				if (board[b][a-1] == "V"):
+					vPoint = a-1,b
+					possibleV.append(vPoint)
+				if (board[b+1][a] == "V"):
+					vPoint = a,b+1
+					possibleV.append(vPoint)
+				lineV = random.randint(0,len(possibleV)-1)
+				return possibleV[lineV]
+
+			elif (b == height-1):
+				if (board[b][a+1] == "V"):
+					vPoint = a+1,b
+					possibleV.append(vPoint)
+				if (board[b][a-1] == "V"):
+					vPoint = a-1,b
+					possibleV.append(vPoint)
+				if (board[b-1][a] == "V"):
+					vPoint = a,b-1
+					possibleV.append(vPoint)
+				lineV = random.randint(0,len(possibleV)-1)
+				return possibleV[lineV]
 
 			else:
-				if (a == 0):
-					if (a+1,b == visited[y][x]):
-						possibleV.append(a+1,b)
-					if (a,b-1 == visited[y][x]):
-						possibleV.append(a,b-1)
-					if (a,b+1 == visited[y][x]):
-						possibleV.append(a,b+1)
-					lineV = random.randint(0,len(possibleV))
-					return possibleV[liveV]
-
-				elif (a == width-1):
-					if (a-1,b == visited[y][x]):
-						possibleV.append(a-1,b)
-					if (a,b-1 == visited[y][x]):
-						possibleV.append(a,b-1)
-					if (a,b+1 == visited[y][x]):
-						possibleV.append(a,b+1)
-					lineV = random.randint(0,len(possibleV))
-					return possibleV[liveV]
-
-				elif (b == 0):
-					if (a+1,b == visited[y][x]):
-						possibleV.append(a+1,b)
-					if (a-1,b == visited[y][x]):
-						possibleV.append(a-1,b)
-					if (a,b+1 == visited[y][x]):
-						possibleV.append(a,b+1)
-					lineV = random.randint(0,len(possibleV))
-					return possibleV[liveV]
-
-				elif (b == height-1):
-					if (a+1,b == visited[y][x]):
-						possibleV.append(a+1,b)
-					if (a-1,b == visited[y][x]):
-						possibleV.append(a-1,b)
-					if (a,b-1 == visited[y][x]):
-						possibleV.append(a,b-1)
-					lineV = random.randint(0,len(possibleV))
-					return possibleV[liveV]
-
-				else:
-					if (a+1,b == visited[y][x]):
-						possibleV.append(a+1,b)
-					if (a-1,b == visited[y][x]):
-						possibleV.append(a-1,b)
-					if (a,b-1 == visited[y][x]):
-						possibleV.append(a,b-1)
-					if (a,b+1 == visited[y][x]):
-						possibleV.append(a,b+1)
-					lineV = random.randint(0,len(possibleV))
-					return possibleV[liveV]
+				if (board[b][a+1] == "V"):
+					vPoint = a+1,b
+					possibleV.append(vPoint)
+				if (board[b][a-1] == "V"):
+					vPoint = a-1,b
+					possibleV.append(vPoint)
+				if (board[b-1][a] == "V"):
+					vPoint = a,b-1
+					possibleV.append(vPoint)
+				if (board[b-1][a] == "V"):
+					vPoint = a,b+1
+					possibleV.append(vPoint)
+				lineV = random.randint(0,len(possibleV)-1)
+				return possibleV[lineV]
+#Maybe change the visited[x] for board[y][x] and check to see if it's "v"
 
 def checkPixels():
 	for x in range(1,imgx-1):
@@ -238,6 +264,7 @@ board = [["N"]*width for x in range(height)]
 
 visited = []
 frontier = []
+possibleV = []
 
 """
 for x in range(width):
@@ -245,11 +272,16 @@ for x in range(width):
 		board[y][x] = x, y
 """
 
-startX = random.randint(0,width)
-startY = random.randint(0,height)
+#--------------
+# is randint inclusive of second value?
+#--------------
+startX = random.randint(0,width-1)
+startY = random.randint(0,height-1)
 startV = startX, startY
+print(startV)
 
 #Maze starts
+
 visited.append([startX, startY])
 board[startY][startX] = "V"
 """
@@ -260,12 +292,12 @@ visited[0,1] = startY
 
 addFrontier(startX, startY)
 
-
+count = 0
 while (len(frontier) > 0):
-	count = 0
 
-	newV = random.randint(0, len(frontier))
+	newV = random.randint(0, len(frontier)-1)
 	visited.append(frontier[newV])
+	print(frontier[newV])
 	board[frontier[newV][0]][frontier[newV][1]] = "V"
 
 	a, b = frontier[newV]
@@ -280,8 +312,14 @@ while (len(frontier) > 0):
 		removeLines(startV, updatedV)
 		count+=1
 	else:
+		print("A and B: " + str(a),str(b))
 		#Create a function that is made of if statements and checks to see how many V points are around the given point before providing a random V point (maybe returns it) - this will provide the updatedV point another point that has already been deemed "V" and remove the lines between them
-		removeLines(updatedV, checkV(a,b))
+		newestV = checkV(a,b)
+		print("Check V: " + str(newestV))
+		print("Updated V: " + str(updatedV))
+		print("-----")
+		removeLines(updatedV, newestV)
+		possibleV.clear()
 
 image.show()
 
@@ -290,3 +328,4 @@ image.show()
 
 
 #At the end, write why I did or didn't use a class
+#Creative - add levels and then custom
