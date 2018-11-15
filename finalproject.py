@@ -117,7 +117,7 @@ def removeLines(point1, point2):
 
 def checkV(a,b):
 	global possibleV
-	#----------------
+
 	possibleV = [[-1,0],[1,0],[0,-1],[0,1]]
 
 	if (a > 0) and (a < width-1) and (b > 0) and (b < height-1):
