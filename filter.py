@@ -33,6 +33,6 @@ for x in range (width):
 		image.putpixel((x,y),(r*2, g, b))
 
 
-#image = image.filter(ImageFilter.EMBOSS)
+image = image.filter(ImageFilter.EMBOSS)
 
-image.show()
+#image.show()
