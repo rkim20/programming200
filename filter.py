@@ -14,7 +14,7 @@ width, height = image.size
 
 image = image.filter(ImageFilter.SMOOTH_MORE)
 
-#image.show()
+image.show()
 
 #-------------------------------------------------------------------------
 
@@ -36,7 +36,7 @@ for x in range (width):
 
 #image = image.filter(ImageFilter.EMBOSS)
 
-#image.show()
+image.show()
 
 #-------------------------------------------------------------------------
 """
