@@ -1,95 +1,34 @@
-''' 24. 
-   Write code that will produce each of these visual outputs:
-   # # # # # # #    # # # # # # #    # # # # # # #
-   #           #      #       #      # #       # #
-   #           #        #   #        #   #   #   #
-   #           #          #          #     #     #
-   #           #        #   #        #   #   #   #
-   #           #      #       #      # #       # #
-   # # # # # # #    # # # # # # #    # # # # # # #
-'''
-height = 7
-width = 7
+width = 11
+height = 10
 
-'''
 board = []
-board = [["#"]*width for x in range(height)]
+board = [[0]*width for x in range(height+1)]
+
+x = 1
+
+for i in range(height):
+	for j in range(width):
+		board[i][j] = x
+		x = x + 1
 
 
-for y in range (1, height-1):
-	for x in range(1, width-1):
-		print(board[y][x], end = " ")
+for i in range(height):
+	for j in range(width):
+		if (board[i][j]%3 == 0) and (board[i][j]%5 == 0):
+			board[i][j] = "CozaLoza"
+		elif (board[i][j]%3 == 0) and (board[i][j]%7 == 0):
+			board[i][j] = "CozaWoza"
+		elif (board[i][j]%5 == 0) and (board[i][j]%7 == 0):
+			board[i][j] = "LocaWoza"
+		elif (board[i][j]%3 == 0):
+			board[i][j] = "Coza"
+		elif (board[i][j]%5 == 0):
+			board[i][j] = "Loza"
+		elif (board[i][j]%7 == 0):
+			board[i][j] = "Woza"
+
+
+for i in range (height):
+	for j in range (width):
+		print(board[i][j], end = " ")
 	print("")
-'''
-
-'''
---------------------------------------
-for i in range (width):
-	print("#", end = "")
-
-print("\n")
-
-for i in range (width-2):
-	print("#     #")
-
-for i in range (width):
-	print("#", end = "")
---------------------------------------
-'''
-
-'''
---------------------------------------
-for i in range (width):
-	print("#", end = "")
-
-print("\n")
-
-print(" #   # ")
-
-print("  # #  ")
-
-
-print("   #   ")
-
-
-print("  # #  ")
-
-
-print(" #   # ")
-
-for i in range (width):
-	print("#", end = "")
---------------------------------------
-'''
-
-for i in range (width):
-	print("#", end = "")
-
-print("\n")
-
-print("##   ##")
-
-print("# # # #")
-
-
-print("#  #  #")
-
-
-print("# # # #")
-
-
-print("##   ##")
-
-for i in range (width):
-	print("#", end = "")
-
-
-
-
-
-
-
-
-
-
-
