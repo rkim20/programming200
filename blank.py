@@ -1,34 +1,12 @@
-width = 11
-height = 10
+''' 4. 
+    Use numpy to create an array of numbers going from 20 to 100 by increments of .25
+    Then, multiply all the values in the array by 4. 
+    Then. find the sum of all the values.
+'''
+import numpy as np
 
-board = []
-board = [[0]*width for x in range(height+1)]
+list = np.arrange(20,100.1,0.25)
 
-x = 1
+list = list*4
 
-for i in range(height):
-	for j in range(width):
-		board[i][j] = x
-		x = x + 1
-
-
-for i in range(height):
-	for j in range(width):
-		if (board[i][j]%3 == 0) and (board[i][j]%5 == 0):
-			board[i][j] = "CozaLoza"
-		elif (board[i][j]%3 == 0) and (board[i][j]%7 == 0):
-			board[i][j] = "CozaWoza"
-		elif (board[i][j]%5 == 0) and (board[i][j]%7 == 0):
-			board[i][j] = "LocaWoza"
-		elif (board[i][j]%3 == 0):
-			board[i][j] = "Coza"
-		elif (board[i][j]%5 == 0):
-			board[i][j] = "Loza"
-		elif (board[i][j]%7 == 0):
-			board[i][j] = "Woza"
-
-
-for i in range (height):
-	for j in range (width):
-		print(board[i][j], end = " ")
-	print("")
+total = np.sum(list)
