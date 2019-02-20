@@ -31,3 +31,11 @@ for tuples in price_results:
 plt.plot(x_data,graph_data)
 plt.show()
 
+
+
+
+
+
+
+
+#intetions: pricing
